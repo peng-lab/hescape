@@ -1,0 +1,38 @@
+# @package _global_
+
+defaults:
+  - override /hydra/launcher: submitit_slurm
+
+hydra:
+  launcher:
+    _target_: hydra_plugins.hydra_submitit_launcher.submitit_launcher.SlurmLauncher
+    partition: gpu_p
+    qos: gpu_preemptible
+    constraint: "[a100_80gb]"
+    cpus_per_task: 8
+    gres: gpu:2
+    tasks_per_node: 2
+    nodes: 1
+    mem_gb: 240
+    timeout_min: 1440
+    array_parallelism: 10 # max num of tasks to run in parallel (via job array)
+    setup:
+      # - export NCCL_P2P_LEVEL=PIX
+      # - export MASTER_PORT=21000
+      # - export WORLD_SIZE=2
+      # - export MASTER_ADDR=$(scontrol show hostnames '$SLURM_JOB_NODELIST' | head -n 1)
+      # - export NCCL_DEBUG_SUBSYS=COLL
+      # - export NCCL_IB_DISABLE=1
+      # - export NCCL_IB_HCA=mlx5
+      # - export LD_LIBRARY_PATH=/apps/pmix/4.2.7/lib:$LD_LIBRARY_PATH
+      # - export PATH=/apps/pmix/4.2.7/bin:$PATH
+      # - export LD_LIBRARY_PATH=/apps/openmpi/4.1.6/lib:$LD_LIBRARY_PATH
+      # - export PATH=/apps/openmpi/4.1.6/bin:$PATH
+      # - export PATH=/usr/local/cuda-12.2/bin:$PATH
+      # - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-12.2/lib64
+      - conda init
+      - conda activate hescape
+    additional_parameters:
+      nice: 0
+    # reservation: res_rushin.gindra
+    # nodelist: "gpusrv11,gpusrv18"

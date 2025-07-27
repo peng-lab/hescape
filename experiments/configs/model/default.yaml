@@ -1,0 +1,34 @@
+litmodule:
+  _target_: hescape.modules.pretrain_module.PretrainModule
+  _partial_: true
+  input_genes: ${datamodule.input_genes} # changes depending on the gene-panel used
+  embed_dim: 128
+  img_enc_name: uni # options: "ctranspath", "densenet", "uni", "optimus", "conch", "gigapath"
+  gene_enc_name: drvi # "drvi", "nicheformer", "scfoundation", "uce", "generic"
+  loss: SIGLIP
+  img_finetune: false # true or false
+  gene_finetune: true # true or false
+  img_proj: linear # options: "linear", "mlp", "transformer"
+  gene_proj: linear # options: "linear", "mlp", "identity"
+  n_tissue:
+  n_region:
+  image_size: 224
+  temperature: 0.1
+  lr: ${model.optimizer.lr}
+  weight_decay: ${model.optimizer.weight_decay}
+
+optimizer:
+  lr: 1e-5 # 0.001
+  weight_decay: 0.01 # 0.2
+
+cosine_scheduler:
+  _target_: hescape.modules._utils._get_cosine_schedule_with_warmup_lr_lambda
+  _partial_: true
+  num_warmup_steps: 782 # ${eval:'0.2 * ${training.lightning.trainer.max_steps}'}
+  num_cycles: 0.5
+  num_training_steps: ${training.lightning.trainer.max_steps}
+
+monitor: "val_loss"
+evaluations:
+  batch_key: id
+  label_key: organ

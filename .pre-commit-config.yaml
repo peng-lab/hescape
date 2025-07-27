@@ -21,8 +21,10 @@ repos:
       - id: ruff-check
         types_or: [python, pyi, jupyter]
         args: [--fix, --exit-non-zero-on-fix]
+        exclude: ^src/hescape/models/gexp_models/scf_utils/
       - id: ruff-format
         types_or: [python, pyi, jupyter]
+        exclude: ^src/hescape/models/gexp_models/scf_utils/
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:

@@ -107,19 +107,33 @@ lint.select = [
   "W",      # Warning detected by Pycodestyle
 ]
 lint.ignore = [
-  "B008", # Errors from function calls in argument defaults. These are fine when the result is immutable.
-  "D100", # Missing docstring in public module
+  "B006",   # Do not use mutable data structures for argument defaults
+  "B007",   # Loop control variable `i` not used within loop body
+  "B008",   # Errors from function calls in argument defaults. These are fine when the result is immutable.
+  "B023",   # Function definition does not bind loop variable `metadata`
+  "BLE001", # Do not catch blind exception: `Exception`
+  "D100",   # Missing docstring in public module
+  "D101",   # Missing docstring in public class
+  # Custom Added by author
+  "D102", # Missing docstring in public method
+  "D103", # Missing docstring in public function
   "D104", # Missing docstring in public package
   "D105", # __magic__ methods are often self-explanatory, allow missing docstrings
   "D107", # Missing docstring in __init__
   # Disable one in each pair of mutually incompatible rules
   "D203", # We don’t want a blank line before a class docstring
-  "D213", # <> We want docstrings to start immediately after the opening triple quote
-  "D400", # first line should end with a period [Bug: doesn’t work with single-line docstrings]
-  "D401", # First line should be in imperative mood; try rephrasing
-  "E501", # line too long -> we accept long comment lines; formatter gets rid of long code lines
-  "E731", # Do not assign a lambda expression, use a def -> lambda expression assignments are convenient
-  "E741", # allow I, O, l as variable names -> I is the identity matrix
+  "D205", # 1 blank line required between summary line and description
+
+  "D213",  # <> We want docstrings to start immediately after the opening triple quote
+  "D400",  # first line should end with a period [Bug: doesn’t work with single-line docstrings]
+  "D401",  # First line should be in imperative mood; try rephrasing
+  "E402",  # Module level import not at top of file
+  "E501",  # line too long -> we accept long comment lines; formatter gets rid of long code lines
+  "E731",  # Do not assign a lambda expression, use a def -> lambda expression assignments are convenient
+  "E741",  # allow I, O, l as variable names -> I is the identity matrix
+  "F821",  # Undefined name `warnings`
+  "F841",  # Local variable `annotations` is assigned to but never used
+  "UP038", # Use `X | Y` in `isinstance` call instead of `(X, Y)`
 ]
 lint.per-file-ignores."*/__init__.py" = [ "F401" ]
 lint.per-file-ignores."docs/*" = [ "I" ]

@@ -1,0 +1,10 @@
+defaults:
+  - anatomy: breast
+
+base_path: /lustre/groups/peng/datasets/SpatialCLIP/hf_datasets
+base_output_path: /lustre/groups/peng/projects/rushin.gindra/hai_spatial_clip/SpatialCLIP/results
+
+pretrain_weights:
+  img_enc_path: /lustre/groups/peng/projects/rushin.gindra/hai_spatial_clip/SpatialCLIP/pretrain_weights/image
+  gene_enc_path: /lustre/groups/peng/projects/rushin.gindra/hai_spatial_clip/SpatialCLIP/pretrain_weights/gene
+  data_gene_reference_path: /lustre/groups/peng/projects/rushin.gindra/hai_spatial_clip/SpatialCLIP/data/model_reference.h5ad

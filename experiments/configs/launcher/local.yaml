@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - override /hydra/launcher: submitit_local
+
+hydra:
+  launcher:
+    _target_: hydra_plugins.hydra_submitit_launcher.submitit_launcher.LocalLauncher
+    name: submitit_local
+    gpus_per_node: 4
+    tasks_per_node: 4
+    mem_gb: 480
+    nodes: 1
+    # name: ${hydra.job.name}

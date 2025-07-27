@@ -1,0 +1,43 @@
+{
+  "template": "https://github.com/scverse/cookiecutter-scverse",
+  "commit": "dc0fb8fba3bb99326a54db288c2a941553e5a220",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "hescape",
+      "package_name": "hescape",
+      "project_description": "A large scale benchmark for cross-modal histology and spatial gene expression learning",
+      "author_full_name": "Rushin Gindra",
+      "author_email": "rushin.gindra@helmholtz-munich.de",
+      "github_user": "peng-lab",
+      "github_repo": "hescape",
+      "license": "MIT License",
+      "ide_integration": true,
+      "_copy_without_render": [
+        ".github/workflows/build.yaml",
+        ".github/workflows/test.yaml",
+        "docs/_templates/autosummary/**.rst"
+      ],
+      "_exclude_on_template_update": [
+        "CHANGELOG.md",
+        "LICENSE",
+        "README.md",
+        "docs/api.md",
+        "docs/index.md",
+        "docs/notebooks/example.ipynb",
+        "docs/references.bib",
+        "docs/references.md",
+        "src/**",
+        "tests/**"
+      ],
+      "_render_devdocs": false,
+      "_jinja2_env_vars": {
+        "lstrip_blocks": true,
+        "trim_blocks": true
+      },
+      "_template": "https://github.com/scverse/cookiecutter-scverse",
+      "_commit": "dc0fb8fba3bb99326a54db288c2a941553e5a220"
+    }
+  },
+  "directory": null
+}

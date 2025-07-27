@@ -1,0 +1,10 @@
+defaults:
+  - anatomy: breast
+
+base_path: /mnt/raw/datasets/hf_datasets
+base_output_path: /mnt/raw/spatialclip/results
+
+pretrain_weights:
+  img_enc_path: /mnt/raw/spatialclip/pretrain_weights/image
+  gene_enc_path: /mnt/raw/spatialclip/pretrain_weights/gene
+  data_gene_reference_path: /home/ubuntu/SpatialCLIP/data/model_reference.h5ad

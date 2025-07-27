@@ -1,0 +1,67 @@
+# @package _global_
+
+defaults:
+  - launcher: juelich
+  - model: default
+  - training: default
+  - paths: juelich
+  - datamodule: breast
+  - _self_
+  - override paths/anatomy: breast
+
+############ Job specific configurations ############
+
+name: human_breast_panel
+
+model:
+  litmodule:
+    img_enc_name: optimus
+    img_finetune: false
+    gene_enc_name: drvi
+    gene_finetune: false
+    img_proj: mlp
+    loss: CLIP
+    temperature: 0.07
+
+datamodule:
+  seed: 24442
+  batch_size: 64
+  num_workers: 0
+  persistent_workers: false
+
+training:
+  lightning:
+    trainer:
+      max_steps: 20_000
+      devices: 1
+      num_nodes: 1
+      strategy: auto
+  train: true
+  test:
+    false
+    # profiler: simple
+
+  logger:
+    wandb:
+      project: breast_panel
+#       # name: "uni-drvi-siglip"
+
+############ Hydra specific configurations ############
+# hydra:
+#   job:
+#     name: human_breast_panel
+#   sweeper:
+#     params:
+#       model.litmodule.img_enc_name: optimus, gigapath, optimus
+#       model.litmodule.img_finetune: false, true  # Lora finetune
+#       model.litmodule.img_proj: transformer, mlp # linear
+#       model.litmodule.gene_enc_name: drvi, generic, nicheformer # scFoundation
+#       model.litmodule.gene_finetune: false # lora or full fine-tune
+#       model.litmodule.gene_proj: linear # mlp
+#       model.litmodule.loss: CLIP # SIGLIP
+#       model.litmodule.temperature: 0.07 # 0.5
+#       datamodule.seed: 24442 #, 422244, 42424244
+#       datamodule.batch_size: 64, 256 #, 1024
+#       datamodule.num_workers: 12
+#       training.train: true
+#       training.test: false

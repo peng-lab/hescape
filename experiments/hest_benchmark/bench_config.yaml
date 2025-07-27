@@ -1,0 +1,67 @@
+# directory containing the data for each task
+bench_data_root: "/p/project1/hai_spatial_clip/data/hest-benchmark"
+
+# directory where benchmark results will be dumped
+results_dir: "/p/project1/hai_spatial_clip/outputs/hescape_bench_output/ST_pred_results"
+
+# directory where the vision embeddings will be dumped
+embed_dataroot: "/p/project1/hai_spatial_clip/outputs/hescape_bench_output/ST_data_emb"
+
+# directory to the model weights root
+weights_root: "/p/project1/hai_spatial_clip/selected_hest_models"
+
+# inference parameters
+batch_size: 128
+num_workers: 1
+
+# encoders to benchmark
+encoders: [
+    # OG models
+    # "uni_v1", # uncomment after requesting the weights
+    #"resnet50",
+    # "ctranspath",
+    #"phikon",
+    #"phikon_v2",
+    # "h0_mini", # uncomment after requesting the weights
+    #"hibou_large",
+    #"kaiko_base_8",
+    #"remedis", # uncomment after requesting the weights
+    # "conch_v1", # uncomment after requesting the weights
+    # "gigapath", # uncomment after requesting the weights
+    #"virchow", # uncomment after requesting the weights
+    #"virchow2", # uncomment after requesting the weights
+    #"hoptimus0",
+
+    # HESCAPE models
+    "hescape_multi_tissue_h0_mini",
+    "hescape_multi_tissue_gigapath",
+    "hescape_multi_tissue_uni",
+    "hescape_5k_h0_mini",
+    "hescape_5k_gigapath",
+    "hescape_5k_uni",
+  ]
+
+# datasets contained in `bench_data_root` to benchmark
+datasets: [
+    # "IDC",
+    # "PRAD",
+    #"PAAD",
+    # "SKCM",
+    # "COAD",
+    # "READ",
+    # "CCRCC",
+    # "HCC",
+    # "LUNG",
+    # "LYMPH_IDC",
+
+    # "human_colon_panel",
+    # "human_multi_tissue_panel",
+
+    # works
+    "human_breast_panel",
+    "human_immuno_oncology_panel",
+    "human_5k_panel",
+    "human_lung_healthy_panel",
+  ]
+#dimreduce: "PCA"
+latent_dim: 128

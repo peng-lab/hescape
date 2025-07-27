@@ -1,0 +1,17 @@
+_target_: hescape.data_modules.image_gexp_dataset.ImageGexpDataModule
+dataset_path: ${paths.anatomy.data}
+data_gene_reference_path: ${paths.anatomy.pretrain_weights.data_gene_reference_path}
+img_model_name: ${model.litmodule.img_enc_name} # ! must be specified
+gene_model_name: ${model.litmodule.gene_enc_name}
+num_workers: 4
+pin_memory: true
+persistent_workers: true
+batch_size: 64
+source_key: tissue
+source_value: ["bowel"]
+split_key: name
+split_train_csv: ${paths.anatomy.train_csv}
+split_val_csv: ${paths.anatomy.val_csv}
+split_test_csv: ${paths.anatomy.test_csv}
+input_genes: 322
+seed: 42

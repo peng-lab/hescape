@@ -1,0 +1,58 @@
+lightning:
+  trainer:
+    _target_: pytorch_lightning.Trainer
+    _partial_: true
+    max_steps: 40_000
+    enable_progress_bar: true
+    devices: 1 # ${hydra:launcher.tasks_per_node} # it oly works for submitit
+    num_nodes: 1 # ${hydra:launcher.nodes}
+    strategy: "ddp"
+    precision: "bf16-mixed" #16
+    log_every_n_steps: 10 # TBD
+    # check_val_every_n_epoch: 3
+    val_check_interval: 1.0
+    sync_batchnorm: True
+    accelerator: "gpu"
+    gradient_clip_val: 5 # TBD
+    num_sanity_val_steps: 2 # TBD
+    profiler:
+
+train: true
+test: false
+
+# Are evaluations used at all?
+evaluations:
+  batch_key: id
+  label_key: organ
+
+callbacks:
+  model_checkpoint:
+    _target_: pytorch_lightning.callbacks.ModelCheckpoint
+    monitor: val_loss
+    save_last: true
+    mode: min
+    save_top_k: 2
+    dirpath: ${paths.anatomy.output}/checkpoints
+    auto_insert_metric_name: True
+  early_stopping:
+    _target_: pytorch_lightning.callbacks.EarlyStopping
+    monitor: val_loss
+    min_delta: 1e-2
+    patience: 5
+    mode: min
+  lr_monitor:
+    _target_: pytorch_lightning.callbacks.LearningRateMonitor
+    logging_interval: step
+
+logger:
+  csv:
+    _target_: pytorch_lightning.loggers.csv_logs.CSVLogger
+    save_dir: ${paths.anatomy.output}/csv_logger
+    name: ""
+    prefix: ""
+  wandb:
+    _target_: pytorch_lightning.loggers.wandb.WandbLogger
+    save_dir: ${paths.anatomy.output}/wandb_logger
+    log_model: False
+    project: "clip_pretrain"
+    name: null

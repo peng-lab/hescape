@@ -1,0 +1,11 @@
+defaults:
+  - anatomy: breast
+
+base_path: /p/project1/hai_spatial_clip/data/xenium/encoded_files
+base_splits_path: /p/project1/hai_spatial_clip/hescape/data
+base_output_path: /p/project1/hai_spatial_clip/outputs
+
+pretrain_weights:
+  img_enc_path: /p/project1/hai_spatial_clip/pretrain_weights/image
+  gene_enc_path: /p/project1/hai_spatial_clip/pretrain_weights/gene
+  base_data_gene_reference_path: /p/project1/hai_spatial_clip/hescape/data

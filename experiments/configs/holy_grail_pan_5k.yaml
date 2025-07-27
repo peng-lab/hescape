@@ -1,0 +1,70 @@
+# @package _global_
+
+defaults:
+  - launcher: juelich
+  - model: default
+  - training: default
+  - paths: juelich
+  - datamodule: pan_5k
+  - _self_
+  - override paths/anatomy: pan_5k
+
+############ Job specific configurations ############
+
+name: human_pan_5k_panel
+
+# model:
+#   litmodule:
+#     img_enc_name: gigapath
+#     img_finetune: true
+#     gene_enc_name: drvi
+#     gene_finetune: false
+#     img_proj: mlp
+#     loss: CLIP
+#     temperature: 0.07
+
+# datamodule:
+#   seed: 24442
+#   batch_size: 256
+#   num_workers: 4
+#   pin_memory: true
+#   persistent_workers: true
+
+training:
+  lightning:
+    trainer:
+      max_steps: 20_000
+      devices: ${hydra:launcher.tasks_per_node}
+      num_nodes: 1
+      strategy: # "ddp"
+        _target_: pytorch_lightning.strategies.DDPStrategy
+      accelerator: "gpu"
+  train: true
+  test:
+    false
+    # profiler: simple
+
+  logger:
+    wandb:
+      project: holy_grail_pan_5k
+#       # name: "uni-drvi-siglip"
+
+############ Hydra specific configurations ############
+hydra:
+  job:
+    name: human_pan_5k_panel
+  sweeper:
+    params:
+      model.litmodule.img_enc_name: h0-mini, gigapath, conch, ctranspath, uni
+      model.litmodule.img_finetune: true #, true  # Lora finetune
+      model.litmodule.img_proj: mlp #, mlp # linear # transformer
+      model.litmodule.gene_enc_name: scFoundation #nicheformer, generic, drvi
+      model.litmodule.gene_finetune: false # lora or full fine-tune
+      model.litmodule.gene_proj: linear # mlp
+      model.litmodule.loss: CLIP # SIGLIP
+      model.litmodule.temperature: 0.07 # 0.5
+      datamodule.seed: 24442 , 422244, 42424244
+      datamodule.batch_size: 64 #, 256 #, 1024
+      datamodule.num_workers: 4
+      training.train: true
+      training.test: false

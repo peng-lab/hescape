@@ -1,0 +1,11 @@
+data: ${paths.base_path}/paired_ts8_human_multi_tissue_panel.dataset
+train_csv: ${paths.base_splits_path}/human_multi_tissue_panel/train.csv
+val_csv: ${paths.base_splits_path}/human_multi_tissue_panel/val.csv
+test_csv: ${paths.base_splits_path}/human_multi_tissue_panel/test.csv
+
+
+output: ${paths.base_output_path}/human_multi_tissue_panel
+
+pretrain_weights:
+  drvi_model_dir: "drvi_human_multi_tissue_panel"
+  data_gene_reference_path: ${paths.pretrain_weights.base_data_gene_reference_path}/human_multi_tissue_panel/nicheformer_reference.h5ad
