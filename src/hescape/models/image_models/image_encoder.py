@@ -9,6 +9,7 @@ import timm
 import torch
 import torch.nn as nn
 from peft import LoraConfig, get_peft_model
+from safetensors.torch import load_file
 from timm.layers import Mlp
 
 from hescape.models._utils import print_trainable_parameters
@@ -23,7 +24,7 @@ class ImageEncoder(nn.Module):
 
     def __init__(
         self,
-        model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini"] | str,
+        model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini", "lunit"] | str,
         finetune: bool = False,
         embed_dim: int = -1,
         proj: str = "mlp",
@@ -117,6 +118,17 @@ class ImageEncoder(nn.Module):
             # total_blocks may differ, set it according to your needs
             total_blocks = 12  # Example
 
+        elif model_name == "lunit":
+            trunk = timm.create_model(
+                model_name="hf-hub:1aurent/vit_small_patch8_224.lunit_dino",
+                pretrained=False,
+            )
+            checkpoint_path = checkpoint_root / model_name / "model.safetensors"
+            trunk.load_state_dict(load_file(checkpoint_path), strict=True)
+            print(f"Successfully loaded weights for {model_name}")
+            # total_blocks may differ, set it according to your needs
+            total_blocks = 12  # Example
+
         else:
             raise ValueError(f"Unknown model name: {model_name}")
 
@@ -143,6 +155,7 @@ class ImageEncoder(nn.Module):
             "optimus": {"r": 8, "lora_alpha": 16, "target_modules": ["qkv", "proj"]},
             "h0-mini": {"r": 8, "lora_alpha": 16, "target_modules": ["qkv", "proj"]},
             "gigapath": {"r": 8, "lora_alpha": 16, "target_modules": ["qkv", "proj"]},
+            "lunit": {"r": 8, "lora_alpha": 16, "target_modules": ["qkv", "proj"]},
         }
 
         if lora:

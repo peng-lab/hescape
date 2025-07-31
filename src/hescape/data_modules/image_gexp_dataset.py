@@ -325,6 +325,16 @@ TRANSFORMS = {
             T.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)),
         ]
     ),
+    "lunit": T.Compose(
+        [
+            T.ToImage(),
+            T.CenterCrop(512),
+            T.Resize(size=248, interpolation=T.InterpolationMode.BICUBIC, max_size=None, antialias=True),
+            T.CenterCrop(size=[224, 224]),
+            T.ConvertImageDtype(torch.float32),
+            T.Normalize(mean=(0.4850, 0.4560, 0.4060), std=(0.2290, 0.2240, 0.2250)),
+        ]
+    ),
     "augment": T.Compose(
         [
             T.RandomHorizontalFlip(),
@@ -345,7 +355,8 @@ class ImageGexpDataModule(LightningDataModule):
         self,
         dataset_path: Path,
         data_gene_reference_path: Path,
-        img_model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini"] | str,
+        img_model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini", "lunit"]
+        | str,
         gene_model_name: Literal["drvi", "nicheformer", "scfoundation", "generic"] | str,
         source_key: str = "source",
         source_value=None,
