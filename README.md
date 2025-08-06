@@ -1,8 +1,13 @@
 # HESCAPE: A Large-Scale Benchmark for Cross-Modal Learning in Spatial Transcriptomics
 ## Multimodal Contrastive Pretraining for Spatial Transcriptomics and Histology
 
-\[ [arXiv]( Link here) | [Data]( hf link here) | [Tutorials]( link to notebook here) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
+[ [arXiv](https://arxiv.org/abs/2508.01490) | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
 
+## To-Do's
+
+- Add additional HuggingFace datasets
+- Add Docker Container
+- Add Data preprocessing repository link
 
 ## HESCAPE installation
 We support installation via uv, PyPI, Conda, and Docker (coming soon):
@@ -23,7 +28,7 @@ conda create -n "hescape" python=3.11
 conda activate hescape
 pip install -e .
 ```
-### docker
+<!-- ### docker -->
 
 ## Dataset Download
 
@@ -104,7 +109,7 @@ python experiments/hescape_pretrain/train.py --config-name default.yaml
 ```
 
 ## Inference
-We provide a Jupyter notebook [image_model_loading.ipynb](https://github.com/peng-lab/hescape/blob/documentation/notebooks/inference/image_model_loading.ipynb) that demonstrates how to load a pretrained model and extract features from histology images for mutation and gene expression prediction.
+We provide a Jupyter notebook [image_model_loading.ipynb](https://github.com/peng-lab/hescape/blob/documentation/notebooks/image_model_loading.ipynb) that demonstrates how to load a pretrained model and extract features from histology images for mutation and gene expression prediction.
 
 
 ## Benchmark
@@ -137,28 +142,23 @@ Complete Test Recall@5 Results for both Image-to-Gene (I2G) and Gene-to-Image (G
 | drvi-optimus           | 0.299     | 0.321     | 0.271            | 0.342            | 0.287  | 0.267  | **0.412** | _0.397_   | **0.465**  | **0.461**  | 0.562    | 0.612    |
 | drvi-uni               | **0.322** | _0.341_   | _0.312_          | _0.396_          | _0.326_| _0.318_| _0.404_  | **0.401** | 0.450      | 0.436      | _0.610_  | _0.678_  |
 
-
-### Benchmarking your own model
-Easily integrate new models for either modality:
-```
-<custom img, gexp model>
-```
-custom_benchmark_demo.ipynb[ XX ] to test your model with the default dataloader and inference pipeline.
-
-
 ## Issues
 - GitHub issues are prefered
 - If GitHub issues are not possible, email `rushin.gindra@helmholtz-munich.de`
 
 ## Citation
 
-R. Gindra, G. Palla, M. Nguyen, S. J. Wagner, M. Tran, F. Theis, D. Saur, L. Crawford, and T. Peng. A Large-Scale Benchmark of Cross-Modal Learning for Histology and Gene Expression in Spatial Transcriptomics. XXX 2025.
+Gindra, R. H., Palla, G., Nguyen, M., Wagner, S. J., Tran, M., Theis, F. J., Saur, D., Crawford, L., & Peng, T.
+A Large-Scale Benchmark of Cross-Modal Learning for Histology and Gene Expression in Spatial Transcriptomics. arXiv preprint arXiv:2508.01490, August 2025.
 
 ```
-@XXX{gindra2025hescape,
-    author = {Gindra, Rushin and Palla, Giovanni and Nguyen, Mathias and Wagner, Sophia J. and Tran, Manuel and Theis, Fabian and Saur, Dieter and Crawford, Lorin and Peng, Tingying},
-    title = {A Large-Scale Benchmark of Cross-Modal Learning for Histology and Gene Expression in Spatial Transcriptomics},
-    booktitle = {Proceedings of the Computer Vision for Automated Medical Diagnosis (CVAMD) Workshop, ICCV 2025}, # edit this
-    year = {2025},
+@misc{gindra2025largescalebenchmarkcrossmodallearning,
+      title={A Large-Scale Benchmark of Cross-Modal Learning for Histology and Gene Expression in Spatial Transcriptomics},
+      author={Rushin H. Gindra and Giovanni Palla and Mathias Nguyen and Sophia J. Wagner and Manuel Tran and Fabian J Theis and Dieter Saur and Lorin Crawford and Tingying Peng},
+      year={2025},
+      eprint={2508.01490},
+      archivePrefix={arXiv},
+      primaryClass={q-bio.GN},
+      url={https://arxiv.org/abs/2508.01490},
 }
 ```
