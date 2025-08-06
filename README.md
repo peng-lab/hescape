@@ -1,7 +1,7 @@
 # HESCAPE: A Large-Scale Benchmark for Cross-Modal Learning in Spatial Transcriptomics
 ## Multimodal Contrastive Pretraining for Spatial Transcriptomics and Histology
 
-[ [arXiv](https://arxiv.org/abs/2508.01490) | [Blog]() | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
+[ [arXiv](https://arxiv.org/abs/2508.01490) | [Blog](https://www.linkedin.com/pulse/hescape-benchmark-visiongenomics-alignment-spatial-rushin-gindra-rfrsf/?trackingId=FQFxbUmNyOlFcCLuvwqPcA%3D%3D) | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
 
 **Abstract**: Spatial transcriptomics enables simultaneous measurement of gene expression and tissue morphology, offering unprecedented insights into cellular organization and disease mechanisms. However, the field lacks comprehensive benchmarks for evaluating multimodal learning methods that leverage both histology images and gene expression data. Here, we present **HESCAPE**, a large-scale benchmark for cross-modal contrastive pretraining in spatial transcriptomics, built on a curated pan-organ dataset spanning 6 different gene panels and 54 donors. We systematically evaluated state-of-the-art image and gene expression encoders across multiple pre-training strategies and assessed their effectiveness on two downstream tasks: gene mutation classification and gene expression prediction. Our benchmark demonstrates that gene expression encoders are the primary determinant of strong representational alignment, and that gene models pretrained on spatial transcriptomics data outperform both those trained without spatial data and simple baseline ap- proaches. However, downstream task evaluation reveals a striking contradiction: while contrastive pretraining consistently improves gene mutation classification performance, it degrades direct gene expression prediction compared to baseline encoders trained without cross-modal objectives. We identify batch effects as a key factor that interferes with effec- tive cross-modal alignment. Our findings highlight the critical need for batch-robust multimodal learning approaches in spatial transcriptomics. To accelerate progress in this direction, we release HESCAPE, providing standardized datasets, evaluation protocols, and benchmarking tools for the community
 
@@ -116,7 +116,7 @@ python experiments/hescape_pretrain/train.py model.litmodule.img_enc_name=uni da
 | `datamodule.batch_size`                | Batch size for Dataloader                   | `64`, `256`, etc.                                   |
 | `datamodule.num_workers`               | Subprocesses to use for data loading        | `4`, `8`, etc.                                      |
 
-For complete configuration pattern, check out [default_config.yaml](https://github.com/peng-lab/hescape/blob/documentation/experiments/configs/default_config.yaml)
+For complete configuration pattern, check out [default_config.yaml](https://github.com/peng-lab/hescape/blob/main/experiments/configs/default_config.yaml)
 
 ## Training
 Training is launched via Hydra-based configuration. Running `experiments/hescape_pretrain/train.py` without any additional parameters will perform training with parameters from default_config.yaml.
@@ -125,7 +125,7 @@ python experiments/hescape_pretrain/train.py --config-name default_config.yaml
 ```
 
 ## Inference Demo
-We provide a Jupyter notebook [image_model_loading.ipynb](https://github.com/peng-lab/hescape/blob/documentation/notebooks/image_model_loading.ipynb) that demonstrates how to load a pretrained model and extract features from histology images for mutation and gene expression prediction.
+We provide a Jupyter notebook [image_model_loading.ipynb](https://github.com/peng-lab/hescape/blob/main/notebooks/image_model_loading.ipynb) that demonstrates how to load a pretrained model and extract features from histology images for mutation and gene expression prediction.
 
 
 ## Benchmark
