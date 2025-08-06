@@ -1,13 +1,27 @@
 # HESCAPE: A Large-Scale Benchmark for Cross-Modal Learning in Spatial Transcriptomics
 ## Multimodal Contrastive Pretraining for Spatial Transcriptomics and Histology
 
-[ [arXiv](https://arxiv.org/abs/2508.01490) | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
+[ [arXiv](https://arxiv.org/abs/2508.01490) | [Blog]() | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
+
+**Abstract**: Spatial transcriptomics enables simultaneous measurement of gene expression and tissue morphology, offering unprecedented insights into cellular organization and disease mechanisms. However, the field lacks comprehensive benchmarks for evaluating multimodal learning methods that leverage both histology images and gene expression data. Here, we present **HESCAPE**, a large-scale benchmark for cross-modal contrastive pretraining in spatial transcriptomics, built on a curated pan-organ dataset spanning 6 different gene panels and 54 donors. We systematically evaluated state-of-the-art image and gene expression encoders across multiple pre-training strategies and assessed their effectiveness on two downstream tasks: gene mutation classification and gene expression prediction. Our benchmark demonstrates that gene expression encoders are the primary determinant of strong representational alignment, and that gene models pretrained on spatial transcriptomics data outperform both those trained without spatial data and simple baseline ap- proaches. However, downstream task evaluation reveals a striking contradiction: while contrastive pretraining consistently improves gene mutation classification performance, it degrades direct gene expression prediction compared to baseline encoders trained without cross-modal objectives. We identify batch effects as a key factor that interferes with effec- tive cross-modal alignment. Our findings highlight the critical need for batch-robust multimodal learning approaches in spatial transcriptomics. To accelerate progress in this direction, we release HESCAPE, providing standardized datasets, evaluation protocols, and benchmarking tools for the community
+
+<img src="figures/schematic.png" alt="HESCAPE framework" width="800" />
+
+## What does HESCAPE offer?
+🤗 **Huggingface multi-modal datase**t: We release a histology-transcriptomics 1-1 mapped streamable pyarrow datasets for 6 independent 10x Xenium gene panels respectively.
+
+💡 **Pretraining at scale**: We provide a framework that can systematically evaluate 4 gene expression encoders (DRVI, Nicheformer, scFoundation, MLP) and 5 pathology foundation models (Gigapath, UNI, CONCH, H0-mini, CtransPath) across CLIP-style contrastive objectives. We enable users to evaluate their own custom pathology or gene models in a multi-modal CLIP setting.
+
+🔁 **Cross-modal retrieval tasks**: We test how well image patches retrieve matching gene vectors (I2G) and vice versa (G2I), with Recall@5 scores revealing insights into encoder generalizability and dataset-specific tuning.
+
+🧬 **Enables downstream tasks**: We provide tools for users to use HESCAPE trained models for inference in downstream tasks like classification of clinically relevant mutations like MSI, BRAF, KRAS, and Gene expression prediction from Histology.
+
 
 ## To-Do's
 - [ ] Benchmark your own model
 - [ ] New Visium/Xenium datasets
 - [ ] Data preprocessing pipeline
-- [ ] Docker Container  
+- [ ] Docker Container
 
 ## HESCAPE installation
 We support installation via uv, PyPI, Conda, and Docker (coming soon):
@@ -30,7 +44,7 @@ pip install -e .
 ```
 <!-- ### docker -->
 
-<!-- 
+<!--
 ## Dataset Download
 
 - **HEST**
@@ -110,7 +124,7 @@ Training is launched via Hydra-based configuration. Running `experiments/hescape
 python experiments/hescape_pretrain/train.py --config-name default_config.yaml
 ```
 
-## Inference
+## Inference Demo
 We provide a Jupyter notebook [image_model_loading.ipynb](https://github.com/peng-lab/hescape/blob/documentation/notebooks/image_model_loading.ipynb) that demonstrates how to load a pretrained model and extract features from histology images for mutation and gene expression prediction.
 
 
@@ -121,7 +135,7 @@ We provide a Jupyter notebook [image_model_loading.ipynb](https://github.com/pen
 Complete Test Recall@5 Results for both Image-to-Gene (I2G) and Gene-to-Image (G2I) tasks across different tissue panels.
 **Note**: “—” indicates out-of-memory during training. **Bold** = best result, _Underlined_ = second-best.
 
-| Model                   | FiveK I2G | FiveK G2I | MultiTissue I2G | MultiTissue G2I | IO I2G | IO G2I | Colon I2G | Colon G2I | Breast I2G | Breast G2I | Lung I2G | Lung G2I |
+| Model                   | 5K I2G | 5K G2I | Multi-Tissue I2G | Multi-Tissue G2I | ImmOnc I2G | ImmOnc G2I | Colon I2G | Colon G2I | Breast I2G | Breast G2I | Lung I2G | Lung G2I |
 |------------------------|-----------|-----------|------------------|------------------|--------|--------|-----------|-----------|------------|------------|----------|----------|
 | mlp-ctranspath         | 0.103     | 0.106     | 0.138            | 0.098            | 0.110  | 0.094  | 0.098     | 0.122     | 0.116      | 0.117      | 0.103    | 0.126    |
 | mlp-conch              | 0.228     | 0.228     | 0.241            | 0.178            | 0.187  | 0.130  | 0.300     | 0.258     | 0.383      | 0.260      | 0.443    | 0.418    |
@@ -149,7 +163,12 @@ Complete Test Recall@5 Results for both Image-to-Gene (I2G) and Gene-to-Image (G
 - If GitHub issues are not possible, email `rushin.gindra@helmholtz-munich.de`
 ## Contributing guide
 - We are open to contributions from the multi-modal community.
-- Feel free to reach out with a pull-request or via email if you have a prospective idea and need some assistance with implementing it. 
+- Feel free to reach out with a pull-request or via email if you have a prospective idea and need some assistance with implementing it.
+
+## Acknowledgements
+The project was built as an adaptation of functions from cool repositories such as [OpenClip](https://github.com/mlfoundations/open_clip), [HuggingFace Datasets](https://huggingface.co/docs/hub/en/datasets) and [Timm](https://github.com/huggingface/pytorch-image-models/) . We thank all authors and open-source developers for their contribution.
+
+
 ## Citation
 
 Gindra, R. H., Palla, G., Nguyen, M., Wagner, S. J., Tran, M., Theis, F. J., Saur, D., Crawford, L., & Peng, T.
