@@ -4,10 +4,10 @@
 [ [arXiv](https://arxiv.org/abs/2508.01490) | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
 
 ## To-Do's
-
-- Add additional HuggingFace datasets
-- Add Docker Container
-- Add Data preprocessing repository link
+- [ ] Benchmark your own model
+- [ ] New Visium/Xenium datasets
+- [ ] Data preprocessing pipeline
+- [ ] Docker Container  
 
 ## HESCAPE installation
 We support installation via uv, PyPI, Conda, and Docker (coming soon):
@@ -30,6 +30,7 @@ pip install -e .
 ```
 <!-- ### docker -->
 
+<!-- 
 ## Dataset Download
 
 - **HEST**
@@ -49,6 +50,7 @@ Run all conversions via:
 ```
 python preprocess.py --
 ```
+-->
 ## Hyperparameter Configuration
 Our framework uses Hydra for flexible experiment configuration. You can adjust hyperparameters, model settings, or training options directly via a single config file or from the command line.
 
@@ -94,18 +96,18 @@ python experiments/hescape_pretrain/train.py model.litmodule.img_enc_name=uni da
 | `model.litmodule.gene_proj`            | Projection head for gene features           | `mlp`, `linear`                                     |
 | `model.litmodule.loss`                 | Contrastive loss type                       | `CLIP`, `SIGLIP`                                    |
 | `model.litmodule.optimizer.lr`         | Learning rate                               | `1e-3`, `3e-4`, etc.                                |
-| `model.litmodule.temperature`          | XXX                                         | `0.05`, `0.07`, etc.                                | # include this here? description would be too long
+| `model.litmodule.temperature`          | XXX                                         | `0.05`, `0.07`, etc.                                |
 | `training.train` / `training.test`     | Toggle training or test mode                | `true`, `false`                                     |
 | `training.lightning.trainer.max_steps` | Number of steps during training             | `20_000` etc.                                       |
 | `datamodule.batch_size`                | Batch size for Dataloader                   | `64`, `256`, etc.                                   |
 | `datamodule.num_workers`               | Subprocesses to use for data loading        | `4`, `8`, etc.                                      |
 
-For more advanced configuration patterns, check out default_config.yaml[link to config here]
+For complete configuration pattern, check out [default_config.yaml](https://github.com/peng-lab/hescape/blob/documentation/experiments/configs/default_config.yaml)
 
 ## Training
 Training is launched via Hydra-based configuration. Running `experiments/hescape_pretrain/train.py` without any additional parameters will perform training with parameters from default_config.yaml.
 ```
-python experiments/hescape_pretrain/train.py --config-name default.yaml
+python experiments/hescape_pretrain/train.py --config-name default_config.yaml
 ```
 
 ## Inference
@@ -145,7 +147,9 @@ Complete Test Recall@5 Results for both Image-to-Gene (I2G) and Gene-to-Image (G
 ## Issues
 - GitHub issues are prefered
 - If GitHub issues are not possible, email `rushin.gindra@helmholtz-munich.de`
-
+## Contributing guide
+- We are open to contributions from the multi-modal community.
+- Feel free to reach out with a pull-request or via email if you have a prospective idea and need some assistance with implementing it. 
 ## Citation
 
 Gindra, R. H., Palla, G., Nguyen, M., Wagner, S. J., Tran, M., Theis, F. J., Saur, D., Crawford, L., & Peng, T.
