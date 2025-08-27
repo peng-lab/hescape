@@ -46,7 +46,7 @@ class PretrainModule(LightningModule):
         self,
         input_genes: int,
         embed_dim: int,
-        img_enc_name: Literal["ctranspath", "uni", "conch", "optimus", "densenet", "gigapath"],
+        img_enc_name: Literal["ctranspath", "uni", "conch", "optimus", "densenet", "gigapath", "lunit"],
         gene_enc_name: Literal["drvi", "nicheformer", "uce", "scfoundation", "generic"],
         loss: Literal["CLIP", "SIGLIP"],
         img_finetune: bool,
