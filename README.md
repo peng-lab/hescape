@@ -1,7 +1,7 @@
 # HESCAPE: A Large-Scale Benchmark for Cross-Modal Learning in Spatial Transcriptomics
 ## Multimodal Contrastive Pretraining for Spatial Transcriptomics and Histology
 
-[ [arXiv](https://arxiv.org/abs/2508.01490) | [Blog](https://www.linkedin.com/pulse/hescape-benchmark-visiongenomics-alignment-spatial-rushin-gindra-rfrsf/?trackingId=FQFxbUmNyOlFcCLuvwqPcA%3D%3D) | [Data](https://huggingface.co/datasets/marr-peng-lab/paired_ts8_human_breast_panel) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
+[ [arXiv](https://arxiv.org/abs/2508.01490) | [Blog](https://www.linkedin.com/pulse/hescape-benchmark-visiongenomics-alignment-spatial-rushin-gindra-rfrsf/?trackingId=FQFxbUmNyOlFcCLuvwqPcA%3D%3D) | [Data](https://huggingface.co/datasets/rushin682/hescape-pyarrow) | [Cite](https://github.com/peng-lab/hescape?tab=readme-ov-file#citation) \]
 
 **Abstract**: Spatial transcriptomics enables simultaneous measurement of gene expression and tissue morphology, offering unprecedented insights into cellular organization and disease mechanisms. However, the field lacks comprehensive benchmarks for evaluating multimodal learning methods that leverage both histology images and gene expression data. Here, we present **HESCAPE**, a large-scale benchmark for cross-modal contrastive pretraining in spatial transcriptomics, built on a curated pan-organ dataset spanning 6 different gene panels and 54 donors. We systematically evaluated state-of-the-art image and gene expression encoders across multiple pre-training strategies and assessed their effectiveness on two downstream tasks: gene mutation classification and gene expression prediction. Our benchmark demonstrates that gene expression encoders are the primary determinant of strong representational alignment, and that gene models pretrained on spatial transcriptomics data outperform both those trained without spatial data and simple baseline ap- proaches. However, downstream task evaluation reveals a striking contradiction: while contrastive pretraining consistently improves gene mutation classification performance, it degrades direct gene expression prediction compared to baseline encoders trained without cross-modal objectives. We identify batch effects as a key factor that interferes with effec- tive cross-modal alignment. Our findings highlight the critical need for batch-robust multimodal learning approaches in spatial transcriptomics. To accelerate progress in this direction, we release HESCAPE, providing standardized datasets, evaluation protocols, and benchmarking tools for the community
 
@@ -44,27 +44,23 @@ pip install -e .
 ```
 <!-- ### docker -->
 
-<!--
-## Dataset Download
 
-- **HEST**
-- **10x Genomics Website (Xenium)**
-- **10x Genomics Website (Visium)**
-- **HTAN - WUSTL (2D/3D)**
-- **HTAN - HTAPP**
-- **GEO database**
-
-## Dataset Preprocessing
-- **zarr**
-- **HestData objects**
-- **Huggingface datasets**
-(link to notebook or datasets)
-
-Run all conversions via:
+## Using the Dataset
 ```
-python preprocess.py --
+from datasets import load_dataset
+
+# Example: load the human breast panel
+ds = load_dataset(
+    "rushin682/hescape-pyarrow",
+    name="human-breast-panel",
+    split="all",
+    streaming=True
+)
+print(ds)
+
 ```
--->
+Check the huggingface [hescape-pyarrow DatasetCard](https://huggingface.co/datasets/rushin682/hescape-pyarrow) for more information
+
 ## Hyperparameter Configuration
 Our framework uses Hydra for flexible experiment configuration. You can adjust hyperparameters, model settings, or training options directly via a single config file or from the command line.
 
