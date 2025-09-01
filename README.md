@@ -59,7 +59,7 @@ ds = load_dataset(
 print(ds)
 
 ```
-Check the huggingface [hescape-pyarrow DatasetCard](https://huggingface.co/datasets/rushin682/hescape-pyarrow) for more information
+Check the huggingface [hescape-pyarrow DatasetCard](https://huggingface.co/datasets/Peng-AI/hescape-pyarrow) for more information
 
 ## Hyperparameter Configuration
 Our framework uses Hydra for flexible experiment configuration. You can adjust hyperparameters, model settings, or training options directly via a single config file or from the command line.
