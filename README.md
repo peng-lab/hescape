@@ -51,7 +51,7 @@ from datasets import load_dataset
 
 # Example: load the human breast panel
 ds = load_dataset(
-    "rushin682/hescape-pyarrow",
+    "Peng-AI/hescape-pyarrow",
     name="human-breast-panel",
     split="all",
     streaming=True
