@@ -47,7 +47,7 @@ class CLIPModel(nn.Module):
         self,
         input_genes: int,
         embed_dim: int,
-        img_enc_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath"],
+        img_enc_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "lunit"],
         gene_enc_name: Literal["drvi", "nicheformer", "scfoundation", "uce", "generic"],
         loss: Literal["CLIP", "SIGLIP"],
         img_finetune: bool = False,
