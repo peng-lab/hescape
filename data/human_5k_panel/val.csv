@@ -1,0 +1,2 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Xenium_Prime_Ovarian_Cancer_FFPE_XRrun,human_5k_panel,Xenium_Prime_Ovarian_Cancer_FFPE_XRrun,Ovary,Cancer,,FFPE,0.2739598559774087,40x

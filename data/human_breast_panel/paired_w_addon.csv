@@ -1,0 +1,5 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+FFPE Human Breast with Custom Add-on Panel,human_breast_panel,TENX97,Breast,Cancer,patient 2,FFPE,0.2125,40x
+FFPE Human Breast with Custom Add-on Panel,human_breast_panel,TENX96,Breast,Cancer,patient 3,FFPE,0.2125,40x
+FFPE Human Breast with Pre-designed Panel,human_breast_panel,TENX95,Breast,Cancer,patient 2,FFPE,0.2125,40x
+FFPE Human Breast with Pre-designed Panel,human_breast_panel,TENX94,Breast,Cancer,patient 3,FFPE,0.2125,40x

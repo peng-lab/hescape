@@ -1,0 +1,4 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Human Tonsil Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX125,Lymphoid,Diseased,patient 1,FFPE,0.2125,40x
+Human Liver Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX120,Liver,Cancer,,FFPE,0.273694413675181,40x
+Human Kidney Preview Data (Xenium Human Multi-Tissue and Cancer Panel),human_multi_tissue_panel,TENX106,Kidney,Healthy,,FFPE,0.2737278851462893,40x

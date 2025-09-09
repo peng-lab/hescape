@@ -1,0 +1,5 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Xenium_Prime_Breast_Cancer_FFPE,human_5k_panel,Xenium_Prime_Breast_Cancer_FFPE,Breast,Cancer,,FFPE,0.2739598559774087,40x
+Xenium_Prime_Cervical_Cancer_FFPE,human_5k_panel,Xenium_Prime_Cervical_Cancer_FFPE,Cervix,Cancer,,FFPE,0.2739598559774087,40x
+Xenium_Prime_Human_Ovary_FF,human_5k_panel,Xenium_Prime_Human_Ovary_FF,Ovary,Cancer,,Fresh Frozen,0.2739598559774087,40x
+Xenium_Prime_Human_Lung_Cancer_FFPE,human_5k_panel,Xenium_Prime_Human_Lung_Cancer_FFPE,Lung,Cancer,,FFPE,0.2739598559774087,40x

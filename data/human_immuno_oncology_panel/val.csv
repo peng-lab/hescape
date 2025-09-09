@@ -1,0 +1,2 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+FFPE Human Lung Cancer Data with Human Immuno-Oncology Profiling Panel and Custom Add-on,human_immuno_oncology_panel,TENX141,Lung,Cancer,patient 1,FFPE,0.2736430867919545,40x

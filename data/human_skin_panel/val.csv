@@ -1,0 +1,2 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Human Skin Preview Data (Xenium Human Skin Gene Expression Panel with Custom Add-On),human_skin_panel,TENX117,Skin,Cancer,patient 1,FFPE,0.1368527629551209,40x
