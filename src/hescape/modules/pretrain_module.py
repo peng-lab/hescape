@@ -123,9 +123,19 @@ class PretrainModule(LightningModule):
         else:
             return {"optimizer": optimizer}
 
+    def on_train_epoch_start(self):
+        if self.global_rank == 0:
+            print("--- Starting training epoch ---")
+
     def training_step(self, batch, batch_idx):
+        if self.global_rank == 0:
+            print(f"\nStep {self.global_step}, Rank {self.global_rank}: training_step start")
+
         bs = batch["image"].shape[0]
         loss, metrics = self.shared_step(batch, "train")
+        if self.global_rank == 0:
+            print(f"Step {self.global_step}, Rank {self.global_rank}: Forward pass and loss complete")
+
         loss_params = {}
         logit_bias = getattr(self.model, "logit_bias", None)
         if logit_bias is not None:
@@ -134,6 +144,10 @@ class PretrainModule(LightningModule):
         metrics.update(loss_params)
         self.log_dict(metrics, sync_dist=True, batch_size=bs)
         return loss
+
+    def on_train_epoch_end(self):
+        if self.global_rank == 0:
+            print("--- Finished training epoch ---")
 
     def validation_step(self, batch, batch_idx):
         bs = batch["image"].shape[0]

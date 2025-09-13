@@ -343,9 +343,9 @@ TRANSFORMS = {
 class ImageGexpDataModule(LightningDataModule):
     def __init__(
         self,
-        dataset_path: Path,
+        dataset_path: str,
         dataset_name: str,
-        data_files_path: Path,
+        data_files_path: str,
         img_model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini"] | str,
         gene_model_name: Literal["drvi", "nicheformer", "scfoundation", "generic"] | str,
         source_key: str = "source",
@@ -367,6 +367,8 @@ class ImageGexpDataModule(LightningDataModule):
 
         Args:
             dataset_path (Path): Path to the dataset directory.
+            dataset_name (str): Name of the dataset on Huggingface.
+            data_files_path (Path): Path to the directory containing data files.
             img_model_name (str): Name of the Image model to determine the transformation pipeline. Defaults to "default".
             gene_model_name (str): Name of the Gene model to determine the transformation for genes. Defaults to "drvi".
             source_key (str, optional): Key in the dataset to filter data. Defaults to "source".
@@ -381,7 +383,7 @@ class ImageGexpDataModule(LightningDataModule):
         super().__init__()
         self.dataset_path = dataset_path
         self.dataset_name = dataset_name
-        self.data_files_path = data_files_path
+        self.data_files_path = Path(data_files_path)
         self.batch_size = batch_size
         self.pin_memory = pin_memory
         self.persistent_workers = persistent_workers
@@ -390,12 +392,12 @@ class ImageGexpDataModule(LightningDataModule):
         self.source_key = source_key
         self.source_value = source_value
 
-        self.data_gene_reference_path = data_files_path / dataset_name / "nicheformer_reference.h5ad"
+        self.data_gene_reference_path = self.data_files_path / dataset_name / "nicheformer_reference.h5ad"
 
         self.split_key = split_key
-        self.split_train_csv = data_files_path / dataset_name / split_train_csv
-        self.split_val_csv = data_files_path / dataset_name / split_val_csv
-        self.split_test_csv = data_files_path / dataset_name / split_test_csv
+        self.split_train_csv = self.data_files_path / dataset_name / split_train_csv
+        self.split_val_csv = self.data_files_path / dataset_name / split_val_csv
+        self.split_test_csv = self.data_files_path / dataset_name / split_test_csv
 
         # Configure transformations
         self.img_transform = (
@@ -472,7 +474,7 @@ class ImageGexpDataModule(LightningDataModule):
         """Prepares train, validation, and test datasets."""
         # self.dataset = load_from_disk(self.dataset_path)
         self.dataset = load_dataset(
-            "Peng-AI/hescape-pyarrow",
+            self.dataset_path,
             name="human-lung-healthy-panel",
             split="train" # change to "full"
         )
@@ -542,13 +544,13 @@ if __name__ == "__main__":
     dataset_name = "human-lung-healthy-panel"
 
 
-    data_files_path = Path("/mnt/projects/hai_spatial_clip/hescape/data/")
-    data_gene_reference_path = data_files_path / dataset_name / "nicheformer_reference.h5ad"
+    data_files_path = "/mnt/projects/hai_spatial_clip/hescape/data/"
+    # data_gene_reference_path = data_files_path / dataset_name / "nicheformer_reference.h5ad"
     
-    split_path = data_files_path / dataset_name
-    split_train_csv = str(split_path / "train.csv")
-    split_val_csv = str(split_path / "val.csv")
-    split_test_csv = str(split_path / "test.csv")
+    # split_path = data_files_path / dataset_name
+    # split_train_csv = str(split_path / "train.csv")
+    # split_val_csv = str(split_path / "val.csv")
+    # split_test_csv = str(split_path / "test.csv")
 
     dm = ImageGexpDataModule(
         dataset_path=dataset_path,

@@ -1,6 +1,7 @@
 defaults:
   - anatomy: breast
 
+dataset_path : Peng-AI/hescape-pyarrow
 base_path: /p/project1/hai_spatial_clip/data/xenium/encoded_files
 base_splits_path: /p/project1/hai_spatial_clip/hescape/data
 base_output_path: /p/project1/hai_spatial_clip/outputs

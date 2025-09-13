@@ -1,5 +1,6 @@
 import warnings
-
+from pathlib import Path
+import os
 # os.environ["NCCL_P2P_LEVEL"] = "PIX"
 import hydra
 from hydra.core.hydra_config import HydraConfig
@@ -14,7 +15,6 @@ import faulthandler
 from pytorch_lightning import seed_everything
 
 faulthandler.enable()
-
 
 def train(cfg: DictConfig) -> None:
     import pytorch_lightning as pl
@@ -102,6 +102,21 @@ def train(cfg: DictConfig) -> None:
             dataloaders=test_loader,
         )
 
+def find_project_root(path: str = ".") -> str:
+    """
+    Recursively finds the project root by looking for a '.git' directory.
+    """
+    # Start from the current working directory
+    current_dir = Path(os.getcwd()).resolve()
+    while current_dir != current_dir.parent:
+        if (current_dir / ".git").is_dir():
+            return str(current_dir)
+        current_dir = current_dir.parent
+    # If .git is not found, raise an error
+    raise FileNotFoundError("Could not find project root with .git directory.")
+
+# Register the custom resolver with OmegaConf
+OmegaConf.register_new_resolver("project_root", find_project_root)
 
 @hydra.main(config_path="./../configs", config_name="breast_clip_pretrain", version_base="1.2")
 def main(cfg: DictConfig) -> None:

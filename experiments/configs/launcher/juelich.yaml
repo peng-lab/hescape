@@ -3,6 +3,8 @@
 defaults:
   - override /hydra/launcher: submitit_slurm
 
+devices_per_job: ${hydra:launcher.tasks_per_node}
+
 hydra:
   launcher:
     partition: booster

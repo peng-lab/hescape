@@ -1,11 +1,12 @@
 _target_: hescape.data_modules.image_gexp_dataset.ImageGexpDataModule
-dataset_path: ${paths.anatomy.data}
-data_gene_reference_path: ${paths.anatomy.pretrain_weights.data_gene_reference_path}
+dataset_path: ${paths.dataset_path}
+dataset_name: ${paths.anatomy.dataset_name}
+data_files_path: ${paths.data_files_path} # ${paths.anatomy.pretrain_weights.data_gene_reference_path}
 img_model_name: ${model.litmodule.img_enc_name} # ! must be specified
 gene_model_name: ${model.litmodule.gene_enc_name}
-num_workers: 4
+num_workers: 0
 pin_memory: true
-persistent_workers: true
+persistent_workers: false
 batch_size: 64
 source_key: tissue
 source_value: ["lung"]
