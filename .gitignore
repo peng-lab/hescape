@@ -26,3 +26,8 @@ __pycache__/
 /experiments/nicheformer
 /experiments/uce
 /experiments/drvi_pretrain
+
+# results exclusion
+outputs
+multirun
+uv.lock
