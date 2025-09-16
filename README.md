@@ -24,7 +24,7 @@
     cd hescape
     uv sync
     ```
-2. **Load a small sample dataset**
+2. **Load a small sample dataset** (make sure you have obtained access to hescape-pyarrow)
     ```python
     from datasets import load_dataset
     ds = load_dataset("Peng-AI/hescape-pyarrow", name="human-lung-healthy-panel", split="train", num_proc=4)
@@ -113,6 +113,7 @@ The HESCAPE repository takes pretrained weights for pre-built images and genes t
 │        ├── uni
 │        └── <predefined image models> ...
 ```
+All DRVI models can be downloaded from [huggingface](https://huggingface.co/Peng-AI/hescape-drvi). For remaining image and gene models, we direct users to obtain them from corresponding repositories and then place the weights in the pretrain_weights/(image | gene) directory respectively
 ## Training
 - Single-GPU local
     ```bash
