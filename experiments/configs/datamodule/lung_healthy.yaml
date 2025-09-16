@@ -4,9 +4,9 @@ dataset_name: ${paths.anatomy.dataset_name}
 data_files_path: ${paths.data_files_path} # ${paths.anatomy.pretrain_weights.data_gene_reference_path}
 img_model_name: ${model.litmodule.img_enc_name} # ! must be specified
 gene_model_name: ${model.litmodule.gene_enc_name}
-num_workers: 0
+num_workers: 4
 pin_memory: true
-persistent_workers: false
+persistent_workers: true
 batch_size: 64
 source_key: tissue
 source_value: ["lung"]

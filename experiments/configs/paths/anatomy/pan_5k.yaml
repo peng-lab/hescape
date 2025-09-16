@@ -1,11 +1,11 @@
-data: ${paths.base_path}/paired_ts8_human_5k_panel.dataset
-train_csv: ${paths.base_splits_path}/human_5k_panel/train.csv
-val_csv: ${paths.base_splits_path}/human_5k_panel/val.csv
-test_csv: ${paths.base_splits_path}/human_5k_panel/test.csv
-
+# data: ${paths.base_path}/paired_ts8_human_5k_panel.dataset
+dataset_name: human-5k-panel
+train_csv: train.csv
+val_csv: val.csv
+test_csv: test.csv
 
 output: ${paths.base_output_path}/human_5k_panel
 
 pretrain_weights:
   drvi_model_dir: "drvi_human_5k_panel"
-  data_gene_reference_path: ${paths.pretrain_weights.base_data_gene_reference_path}/human_5k_panel/nicheformer_reference.h5ad
+  # data_gene_reference_path: ${paths.pretrain_weights.base_data_gene_reference_path}/human_5k_panel/nicheformer_reference.h5ad

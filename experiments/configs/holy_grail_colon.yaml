@@ -34,10 +34,12 @@ training:
   lightning:
     trainer:
       max_steps: 20_000
-      devices: ${hydra:launcher.tasks_per_node}
+      devices: ${devices_per_job}
       num_nodes: 1
       strategy: # "ddp"
         _target_: pytorch_lightning.strategies.DDPStrategy
+        find_unused_parameters: true
+        process_group_backend: "nccl"
       accelerator: "gpu"
   train: true
   test:

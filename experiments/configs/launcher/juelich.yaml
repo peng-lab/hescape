@@ -8,7 +8,7 @@ devices_per_job: ${hydra:launcher.tasks_per_node}
 hydra:
   launcher:
     partition: booster
-    account: hai_spatial_diff
+    account: hai_spatial_clip
     cpus_per_task: 8
     mem_gb: 480
     gres: gpu:4
@@ -18,5 +18,3 @@ hydra:
     array_parallelism: 20 # max num of tasks to run in parallel (via job array)
     setup:
       - CUDA_VISIBLE_DEVICES=0,1,2,3
-      - conda init
-      - conda activate hescape

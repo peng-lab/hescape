@@ -1,6 +1,6 @@
 #!/bin/bash
 
-conda activate hescape
+source .venv/bin/activate
 
 export WANDB_MODE=offline
 export HYDRA_FULL_ERROR=1
@@ -12,4 +12,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
 
 unset SLURM_CPU_BIND
 NCCL_DEBUG=INFO
-python experiments/hescape_pretrain/train.py --config-name holy_grail_breast.yaml launcher=juelich --multirun
+uv run experiments/hescape_pretrain/train.py \
+--config-name holy_grail_breast.yaml \
+launcher=juelich \
+--multirun

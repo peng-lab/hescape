@@ -1,4 +1,0 @@
-hydra:
-  launcher:
-    cpus_per_task: 8
-    tasks_per_node: 4
