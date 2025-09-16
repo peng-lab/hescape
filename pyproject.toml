@@ -14,22 +14,25 @@ maintainers = [
 authors = [
   { name = "Rushin Gindra" },
 ]
-requires-python = ">=3.10, <3.13"
+requires-python = ">=3.10,<3.13"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
   "anndata",
   # for debug logging (referenced from the issue template)
+  "conch",
   "datasets>=4",
   "drvi-py",
+  "einops>=0.8.1",
   "hydra-core>=1.3.2",
+  "hydra-joblib-launcher>=1.2",
   "hydra-submitit-launcher>=1.2",
   "lightning>=2.5.2",
+  "local-attention>=1.11.2",
   "open-clip-torch>=3",
   "peft>=0.16",
   "scikit-learn>=1.7.1",
@@ -178,3 +181,4 @@ skip = [
 
 [tool.uv.sources]
 drvi-py = { git = "https://github.com/theislab/drvi.git", rev = "update-scvi-version" }
+conch = { git = "https://github.com/mahmoodlab/CONCH" }
