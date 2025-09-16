@@ -1,0 +1,10 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Human Bone and Bone Marrow Data with Custom Add-on Panel,human_multi_tissue_panel,TENX134,Lymphoid,Cancer,,FFPE,0.2734917683954451,40x
+Human Bone and Bone Marrow Data with Custom Add-on Panel,human_multi_tissue_panel,TENX133,Lymphoid,Healthy,,FFPE,0.2736577216971553,40x
+Human Bone and Bone Marrow Data with Custom Add-on Panel,human_multi_tissue_panel,TENX132,Bone,Healthy,,FFPE,0.2737036643999411,40x
+FFPE Human Pancreas with Xenium Multimodal Cell Segmentation,human_multi_tissue_panel,TENX126,Pancreas,Cancer,patient1,FFPE,0.2738901649143521,40x
+Human Skin Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX123,Skin,Healthy,,FFPE,0.2125,40x
+Human Liver Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX121,Liver,Healthy,,FFPE,0.2737968482419441,40x
+Human Heart Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX119,Heart,Healthy,,FFPE,0.2737030184716127,40x
+Preview Data: FFPE Human Lung Cancer with Xenium Multimodal Cell Segmentation,human_multi_tissue_panel,TENX118,Lung,Cancer,patient 2,FFPE,0.2738558376865452,40x
+Human Kidney Preview Data (Xenium Human Multi-Tissue and Cancer Panel),human_multi_tissue_panel,TENX105,Kidney,Cancer,,FFPE,0.2737098867519676,40x

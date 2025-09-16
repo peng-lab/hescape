@@ -1,0 +1,2 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+"High resolution mapping of the tumor microenvironment using integrated single-cell, spatial and in situ analysis [Xenium]",human_breast_panel,NCBI783,Breast,Cancer,patient 5,FFPE,0.2739598559774087,40x

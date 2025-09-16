@@ -1,0 +1,5 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Image-based spatial transcriptomics identifies molecular niche dysregulation associated with distal lung remodeling in pulmonary fibrosis,human_lung_healthy_panel,NCBI883,Lung,Healthy,Patient 28,FFPE,0.2125,40x
+Image-based spatial transcriptomics identifies molecular niche dysregulation associated with distal lung remodeling in pulmonary fibrosis,human_lung_healthy_panel,NCBI861,Lung,Diseased,Patient 21,FFPE,0.2125,40x
+Image-based spatial transcriptomics identifies molecular niche dysregulation associated with distal lung remodeling in pulmonary fibrosis,human_lung_healthy_panel,NCBI857,Lung,Diseased,Patient 25,FFPE,0.2125,40x
+Image-based spatial transcriptomics identifies molecular niche dysregulation associated with distal lung remodeling in pulmonary fibrosis,human_lung_healthy_panel,NCBI881,Lung,Diseased,Patient 2,FFPE,0.2125,40x

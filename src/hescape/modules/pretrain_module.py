@@ -126,6 +126,7 @@ class PretrainModule(LightningModule):
     def training_step(self, batch, batch_idx):
         bs = batch["image"].shape[0]
         loss, metrics = self.shared_step(batch, "train")
+
         loss_params = {}
         logit_bias = getattr(self.model, "logit_bias", None)
         if logit_bias is not None:

@@ -1,0 +1,2 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+FFPE Human Pancreatic Ductal Adenocarcinoma Data with Human Immuno-Oncology Profiling Panel,human_immuno_oncology_panel,TENX140,Pancreas,Cancer,patient 3,FFPE,0.2737677105869734,40x

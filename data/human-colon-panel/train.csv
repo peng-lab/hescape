@@ -1,0 +1,4 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Characterization of immune cell populations in the tumor microenvironment of colorectal cancer using high definition spatial profiling,human_colon_panel,TENX149,Bowel,Cancer,Patient 1,FFPE,0.2740308880582206,40x
+Characterization of immune cell populations in the tumor microenvironment of colorectal cancer using high definition spatial profiling,human_colon_panel,TENX148,Bowel,Cancer,Patient 1,FFPE,0.2737603571635976,40x
+Characterization of immune cell populations in the tumor microenvironment of colorectal cancer using high definition spatial profiling,human_colon_panel,TENX147,Bowel,Cancer,Patient 1,FFPE,0.2497022099084696,40x

@@ -1,0 +1,4 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+FFPE Human Ovarian Cancer Data with Human Immuno-Oncology Profiling Panel and Custom Add-on,human_immuno_oncology_panel,TENX142,Ovary,Cancer,,FFPE,0.2737064931431684,40x
+FFPE Human Colorectal Cancer Data with Human Immuno-Oncology Profiling Panel and Custom Add-on,human_immuno_oncology_panel,TENX139,Bowel,Cancer,,FFPE,0.2737406177714192,40x
+FFPE Human Brain Cancer Data with Human Immuno-Oncology Profiling Panel and Custom Add-on,human_immuno_oncology_panel,TENX138,Brain,Cancer,,FFPE,0.2736653437476312,40x

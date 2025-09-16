@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 import torch.nn.functional as F
 import torchvision.transforms.v2 as T
-from datasets import load_from_disk
+from datasets import load_from_disk, load_dataset
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader
 
@@ -343,8 +343,9 @@ TRANSFORMS = {
 class ImageGexpDataModule(LightningDataModule):
     def __init__(
         self,
-        dataset_path: Path,
-        data_gene_reference_path: Path,
+        dataset_path: str,
+        dataset_name: str,
+        data_files_path: str,
         img_model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini"] | str,
         gene_model_name: Literal["drvi", "nicheformer", "scfoundation", "generic"] | str,
         source_key: str = "source",
@@ -366,6 +367,8 @@ class ImageGexpDataModule(LightningDataModule):
 
         Args:
             dataset_path (Path): Path to the dataset directory.
+            dataset_name (str): Name of the dataset on Huggingface.
+            data_files_path (Path): Path to the directory containing data files.
             img_model_name (str): Name of the Image model to determine the transformation pipeline. Defaults to "default".
             gene_model_name (str): Name of the Gene model to determine the transformation for genes. Defaults to "drvi".
             source_key (str, optional): Key in the dataset to filter data. Defaults to "source".
@@ -379,7 +382,8 @@ class ImageGexpDataModule(LightningDataModule):
         """
         super().__init__()
         self.dataset_path = dataset_path
-        self.data_gene_reference_path = data_gene_reference_path
+        self.dataset_name = dataset_name
+        self.data_files_path = Path(data_files_path)
         self.batch_size = batch_size
         self.pin_memory = pin_memory
         self.persistent_workers = persistent_workers
@@ -388,10 +392,12 @@ class ImageGexpDataModule(LightningDataModule):
         self.source_key = source_key
         self.source_value = source_value
 
+        self.data_gene_reference_path = self.data_files_path / dataset_name / "nicheformer_reference.h5ad"
+
         self.split_key = split_key
-        self.split_train_csv = split_train_csv
-        self.split_val_csv = split_val_csv
-        self.split_test_csv = split_test_csv
+        self.split_train_csv = self.data_files_path / dataset_name / split_train_csv
+        self.split_val_csv = self.data_files_path / dataset_name / split_val_csv
+        self.split_test_csv = self.data_files_path / dataset_name / split_test_csv
 
         # Configure transformations
         self.img_transform = (
@@ -404,8 +410,8 @@ class ImageGexpDataModule(LightningDataModule):
         # Load gene model
         if gene_model_name in ["nicheformer"]:
             self.gene_transform = TRANSFORMS["nicheformer"](
-                nicheformer_reference_path="/p/project1/hai_spatial_clip/pretrain_weights/gene/nicheformer/nicheformer_reference.h5ad",
-                technology_mean_path="/p/project1/hai_spatial_clip/pretrain_weights/gene/nicheformer/xenium_mean_script.npy",
+                nicheformer_reference_path="/mnt/projects/hai_spatial_clip/pretrain_weights/gene/nicheformer/nicheformer_reference.h5ad",
+                technology_mean_path="/mnt/projects/hai_spatial_clip/pretrain_weights/gene/nicheformer/xenium_mean_script.npy",
                 data_gene_reference_path=self.data_gene_reference_path,
                 max_seq_len=1500,
                 aux_tokens=30,
@@ -419,16 +425,24 @@ class ImageGexpDataModule(LightningDataModule):
 
         elif gene_model_name in ["scFoundation"]:
             self.gene_transform = TRANSFORMS["scFoundation"](
-                scFoundation_gene_index_path="/p/project1/hai_spatial_clip/pretrain_weights/gene/scFoundation/OS_scRNA_gene_index.19264.tsv",
+                scFoundation_gene_index_path="/mnt/projects/hai_spatial_clip/pretrain_weights/gene/scFoundation/OS_scRNA_gene_index.19264.tsv",
                 data_gene_reference_path=self.data_gene_reference_path,
             )
 
         # Load dataset
-        dataset = load_from_disk(dataset_path)
+        # dataset = load_from_disk(dataset_path)
+        dataset = load_dataset(
+            self.dataset_path,
+            name=self.dataset_name,
+            split="train" # change to "full"
+        )
         self.idx_all = self._filter_dataset_indices(dataset, source_key, source_value)
 
     def _filter_dataset_indices(self, dataset, key, value):
-        """Filters dataset indices based on key and value."""
+        """
+        Filters dataset indices based on key and value.
+        This is important to check for Batch level external testing performance instead of sample/patient level performance.
+        """
         universe = np.array(dataset[key])
         target = dataset.features[key].str2int(value)
         idx_target = np.where(np.isin(universe, target))[0]
@@ -458,7 +472,12 @@ class ImageGexpDataModule(LightningDataModule):
 
     def setup(self, stage=None):
         """Prepares train, validation, and test datasets."""
-        self.dataset = load_from_disk(self.dataset_path)
+        # self.dataset = load_from_disk(self.dataset_path)
+        self.dataset = load_dataset(
+            self.dataset_path,
+            name="human-lung-healthy-panel",
+            split="train" # change to "full"
+        )
         self.dataset = self.dataset.select_columns(SELECTION)
         self.dataset = self.dataset.select(self.idx_all)
         idx_train, idx_val, idx_test = self._split_indices()
@@ -517,33 +536,38 @@ class ImageGexpDataModule(LightningDataModule):
 
 if __name__ == "__main__":
     # dataset_path = "/mnt/volume/cligen-dir/hfdataset/image_gexp_counts.dataset"
-    hf_path = Path("/p/project1/hai_spatial_clip/data/xenium/encoded_files")
-    dataset_path = str(hf_path / "paired_ts8_human_breast_panel.dataset")
+    # hf_path = Path("/mnt/processed_data/hescape-pyarrow")
+    # dataset_path = str(hf_path / "human-lung-healthy-panel")
 
-    data_gene_reference_path = Path(
-        "/p/project1/hai_spatial_clip/hescape/data/human_breast_panel/nicheformer_reference.h5ad"
-    )
+    dataset_path = "Peng-AI/hescape-pyarrow"
+    source_value = ["lung"]
+    dataset_name = "human-lung-healthy-panel"
 
-    split_path = Path("/p/project1/hai_spatial_clip/hescape/data/human_breast_panel")
-    split_train_csv = str(split_path / "train.csv")
-    split_val_csv = str(split_path / "val.csv")
-    split_test_csv = str(split_path / "test.csv")
+
+    data_files_path = "/mnt/projects/hai_spatial_clip/hescape/data/"
+    # data_gene_reference_path = data_files_path / dataset_name / "nicheformer_reference.h5ad"
+    
+    # split_path = data_files_path / dataset_name
+    # split_train_csv = str(split_path / "train.csv")
+    # split_val_csv = str(split_path / "val.csv")
+    # split_test_csv = str(split_path / "test.csv")
 
     dm = ImageGexpDataModule(
         dataset_path=dataset_path,
-        data_gene_reference_path=data_gene_reference_path,
+        dataset_name=dataset_name,
+        data_files_path=data_files_path,
         img_model_name="h0-mini",
-        gene_model_name="scFoundation",
+        gene_model_name="nicheformer",
         source_key="tissue",
-        source_value=["breast"],
+        source_value=source_value,
         batch_size=5,
         num_workers=4,
         seed=42,
         augment=True,
         split_key="name",
-        split_train_csv=split_train_csv,
-        split_val_csv=split_val_csv,
-        split_test_csv=split_test_csv,
+        split_train_csv="train.csv",
+        split_val_csv="val.csv",
+        split_test_csv="test.csv",
     )
     dm.prepare_data()
     dm.setup()
@@ -559,7 +583,7 @@ if __name__ == "__main__":
 
     for idx, batch in enumerate(train_loader):
         # print(f"Batch keys: {batch.keys()}")
-        # print(f"Gexp dims: {batch[DatasetEnum.GEXP].shape}")
+        print(f"Image dims: {batch[DatasetEnum.IMG].shape}")
         print(f"Gexp dims: {batch[DatasetEnum.GEXP].shape}")
         # save image to file
         # torchvision.utils.save_image(batch[DatasetEnum.IMG][0], f"img_{idx}.png")

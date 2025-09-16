@@ -1,0 +1,4 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Human Tonsil Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX124,Lymphoid,Diseased,patient 2,FFPE,0.2736874651966854,40x
+Pancreatic Cancer with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX116,Pancreas,Cancer,patient 2,FFPE,0.136887203675011,40x
+Human Skin Data with Xenium Human Multi-Tissue and Cancer Panel,human_multi_tissue_panel,TENX122,Skin,Healthy,,FFPE,0.2125,40x

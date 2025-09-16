@@ -1,10 +1,14 @@
 defaults:
   - anatomy: breast
 
-base_path: /mnt/raw/datasets/hf_datasets
-base_output_path: /mnt/raw/spatialclip/results
+dataset_path: Peng-AI/hescape-pyarrow
+data_files_path: ${project_root:}/data
+# base_path: /mnt/raw/datasets/hf_datasets
+# base_splits_path: /mnt/projects/hai_spatial_clip/hescape/data
+
+base_output_path: ${project_root:}/../results
 
 pretrain_weights:
-  img_enc_path: /mnt/raw/spatialclip/pretrain_weights/image
-  gene_enc_path: /mnt/raw/spatialclip/pretrain_weights/gene
-  data_gene_reference_path: /home/ubuntu/SpatialCLIP/data/model_reference.h5ad
+  img_enc_path: ${project_root:}/../pretrain_weights/image
+  gene_enc_path: ${project_root:}/../pretrain_weights/gene
+  # base_data_gene_reference_path: /mnt/projects/hai_spatial_clip/hescape/data

@@ -1,4 +1,6 @@
+import os
 import warnings
+from pathlib import Path
 
 # os.environ["NCCL_P2P_LEVEL"] = "PIX"
 import hydra
@@ -61,26 +63,6 @@ def train(cfg: DictConfig) -> None:
     for name, lg in cfg.training.logger.items():
         lgr = hydra.utils.instantiate(lg)
 
-        # if name == "wandb":
-        #     metadata = {
-        #         "img_enc_name": cfg.model.litmodule.img_enc_name,
-        #         "gene_enc_name": cfg.model.litmodule.gene_enc_name,
-        #         "img_proj": cfg.model.litmodule.img_proj,
-        #         "img_finetune": cfg.model.litmodule.img_finetune,
-        #         "gene_proj": cfg.model.litmodule.gene_proj,
-        #         "gene_finetune": cfg.model.litmodule.gene_finetune,
-        #         "loss": cfg.model.litmodule.loss,
-        #         "seed": cfg.datamodule.seed,
-        #         "panel": cfg.name,
-        #     }
-        #     print(metadata)
-
-        #     @rank_zero_only
-        #     def update_wandb_config(logger, metadata):
-        #         logger.experiment.config.update(metadata)
-
-        #     update_wandb_config(lgr, metadata)
-
         logger.append(lgr)
 
     hescape_logger.info("Instantiating trainer...")
@@ -103,7 +85,23 @@ def train(cfg: DictConfig) -> None:
         )
 
 
-@hydra.main(config_path="./../configs", config_name="breast_clip_pretrain", version_base="1.2")
+def find_project_root(path: str = ".") -> str:
+    """Recursively finds the project root by looking for a '.git' directory."""
+    # Start from the current working directory
+    current_dir = Path(os.getcwd()).resolve()
+    while current_dir != current_dir.parent:
+        if (current_dir / ".git").is_dir():
+            return str(current_dir)
+        current_dir = current_dir.parent
+    # If .git is not found, raise an error
+    raise FileNotFoundError("Could not find project root with .git directory.")
+
+
+# Register the custom resolver with OmegaConf
+OmegaConf.register_new_resolver("project_root", find_project_root)
+
+
+@hydra.main(config_path="./../configs", config_name="local_config", version_base="1.2")
 def main(cfg: DictConfig) -> None:
     from rich.pretty import pprint
 

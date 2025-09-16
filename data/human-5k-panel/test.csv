@@ -1,0 +1,3 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+FFPE Human Prostate Adenocarcinoma with 5K Human Pan Tissue and Pathways Panel,human_5k_panel,TENX157,Prostate,Cancer,,FFPE,0.2737414653044506,40x
+FFPE Human Skin Primary Dermal Melanoma with 5K Human Pan Tissue and Pathways Panel,human_5k_panel,TENX158,Skin,Cancer,,FFPE,0.2737536812559247,40x

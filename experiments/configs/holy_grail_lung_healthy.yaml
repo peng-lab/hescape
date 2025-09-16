@@ -15,10 +15,10 @@ name: human_lung_healthy_panel
 
 # model:
 #   litmodule:
-#     img_enc_name: uni
+#     img_enc_name: h0-mini
 #     img_finetune: true
 #     img_proj: mlp
-#     gene_enc_name: scFoundation
+#     gene_enc_name: drvi
 #     gene_finetune: false
 #     gene_proj: linear # mlp
 #     loss: CLIP
@@ -35,10 +35,12 @@ training:
   lightning:
     trainer:
       max_steps: 20_000
-      devices: ${hydra:launcher.tasks_per_node}
+      devices: ${devices_per_job}
       num_nodes: 1
       strategy: # "ddp"
         _target_: pytorch_lightning.strategies.DDPStrategy
+        find_unused_parameters: true
+        process_group_backend: "nccl"
       accelerator: "gpu"
   train: true
   test:
@@ -56,16 +58,16 @@ hydra:
     name: human_lung_healthy_panel
   sweeper:
     params:
-      model.litmodule.img_enc_name: uni, h0-mini, gigapath, conch, ctranspath
+      model.litmodule.img_enc_name: h0-mini #, gigapath, conch, ctranspath, uni
       model.litmodule.img_finetune: true #, true  # Lora finetune
       model.litmodule.img_proj: mlp #, mlp # linear # transformer
-      model.litmodule.gene_enc_name: scFoundation #, nicheformer, generic, drvi
+      model.litmodule.gene_enc_name: drvi #, nicheformer, generic, scFoundation
       model.litmodule.gene_finetune: false # lora or full fine-tune
       model.litmodule.gene_proj: linear # mlp
       model.litmodule.loss: CLIP # SIGLIP
       model.litmodule.temperature: 0.07 # 0.5
-      datamodule.seed: 24442 , 422244, 42424244
+      datamodule.seed: 24442 # , 422244, 42424244
       datamodule.batch_size: 64 #, 256 #, 1024
-      datamodule.num_workers: 4
+      datamodule.num_workers: 8
       training.train: true
       training.test: false

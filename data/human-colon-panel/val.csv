@@ -1,0 +1,2 @@
+dataset_title,gene_panel,id,organ,disease_state,patient,preservation_method,pixel_size_um_estimated,magnification
+Human Colon Preview Data (Xenium Human Colon Gene Expression Panel),human_colon_panel,TENX114,Bowel,Healthy,,FFPE,0.136882136182124,40x
