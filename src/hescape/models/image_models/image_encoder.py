@@ -117,6 +117,10 @@ class ImageEncoder(nn.Module):
             # total_blocks may differ, set it according to your needs
             total_blocks = 12  # Example
 
+        elif model_name == "custom":
+            # Load your custom model here
+            # The `_build_custom_model` function will handle finding the project root, the model and weights loading.
+            trunk, total_blocks = self._build_custom_image_model(**kwargs)
         else:
             raise ValueError(f"Unknown model name: {model_name}")
 

@@ -148,3 +148,33 @@ def print_trainable_parameters(name, model):
     print(
         f"{name} trainable params: {trainable_params / 1e6:.2f}M || all params: {all_param / 1e6:.2f}M || trainable%: {100 * trainable_params / all_param}"
     )
+
+
+def _crawl_and_import_custom_model():
+    """Finds and dynamically imports the user's custom model definition."""
+    # 1. Locate the project root (hescape/) by navigating up from this file.
+    # This path is .../src/hescape/models/image_models/custom_encoder.py
+    # We need to go up 4 levels to get to the root `hescape/` directory.
+    project_root = Path(find_project_root())
+    custom_model_dir = project_root / "custom_model"
+
+    if not custom_model_dir.exists():
+        raise FileNotFoundError(
+            f"The 'custom_model' directory was not found at the project root. Expected location: {custom_model_dir}"
+        )
+
+    # 2. Crawl for .py files and import them
+    py_files = list(custom_model_dir.rglob("*.py"))
+    if not py_files:
+        raise ImportError(f"No Python files found in {custom_model_dir} to import.")
+
+    for path in py_files:
+        # Create a unique module name to avoid conflicts
+        module_name = f"custom_model.{path.stem}"
+        spec = importlib.util.spec_from_file_location(module_name, path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[module_name] = module
+        spec.loader.exec_module(module)
+        print(f"Dynamically imported user model from: {path.name}")
+
+    return custom_model_dir

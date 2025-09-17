@@ -2,7 +2,6 @@ import os
 import warnings
 from pathlib import Path
 
-# os.environ["NCCL_P2P_LEVEL"] = "PIX"
 import hydra
 from hydra.core.hydra_config import HydraConfig
 from omegaconf import DictConfig, OmegaConf
