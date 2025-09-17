@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
+from typing import Any
 
 import torch
 import torch.nn as nn
@@ -46,7 +47,7 @@ def _build_custom_image_model(**kwargs: Any) -> tuple[nn.Module, int]:
     """Discovers and instantiates the user-defined subclass of CustomModel."""
     # 3. Dynamically load the user's code first
     custom_model_dir = _crawl_and_import_custom_model()
-    weight_path = custom_model_dir / "pretrain_weights" / "custom_image_model"
+    weights_path = custom_model_dir / "pretrain_weights" / "custom_image_model"
     # 4. Now, discover the subclass which has been registered by the import
     subclasses = CustomImageModel.__subclasses__()
 

@@ -14,6 +14,7 @@ from timm.layers import Mlp
 from hescape.models._utils import print_trainable_parameters
 from hescape.models.image_models._conch import _build_conch_model
 from hescape.models.image_models._ctranspath import _build_ctranspath_model
+from hescape.models.image_models._custom_image_model import _build_custom_image_model
 from hescape.models.image_models._h0_mini import _build_h0_mini_model
 from hescape.models.image_models._utils import freeze_batch_norm_2d
 
@@ -23,7 +24,7 @@ class ImageEncoder(nn.Module):
 
     def __init__(
         self,
-        model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini"] | str,
+        model_name: Literal["ctranspath", "densenet", "uni", "optimus", "conch", "gigapath", "h0-mini", "custom"] | str,
         finetune: bool = False,
         embed_dim: int = -1,
         proj: str = "mlp",
@@ -120,7 +121,7 @@ class ImageEncoder(nn.Module):
         elif model_name == "custom":
             # Load your custom model here
             # The `_build_custom_model` function will handle finding the project root, the model and weights loading.
-            trunk, total_blocks = self._build_custom_image_model(**kwargs)
+            trunk, total_blocks = _build_custom_image_model(**kwargs)
         else:
             raise ValueError(f"Unknown model name: {model_name}")
 
@@ -219,10 +220,10 @@ class ImageEncoder(nn.Module):
 if __name__ == "__main__":
     # Create an instance of the ImageEncoder class
 
-    for model_name in ["optimus"]:  # , "uni", "ctranspath", "optimus", "conch", "gigapath"]:
+    for model_name in ["custom"]:  # , "uni", "ctranspath", "optimus", "conch", "gigapath"]:
         encoder = ImageEncoder(
             model_name=model_name,
-            finetune=True,
+            finetune=False,
             embed_dim=128,
             proj="mlp",
             checkpoint_path="/p/project1/hai_spatial_clip/pretrain_weights/image",

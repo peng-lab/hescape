@@ -32,3 +32,7 @@ __pycache__/
 outputs
 multirun
 uv.lock
+
+# benchmarking your own model
+custom_model
+custom_h0_mini_model
